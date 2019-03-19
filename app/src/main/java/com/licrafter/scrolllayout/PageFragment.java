@@ -1,8 +1,10 @@
 package com.licrafter.scrolllayout;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.licrafter.scrolllayout.view.SwipeRefreshView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * author: shell
@@ -19,6 +26,8 @@ public class PageFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private int mPosition;
+    private List<String> mList = new ArrayList<>();;
+    private GoodsAdapter mAdapter;
 
     public static PageFragment getInstance(int position) {
         PageFragment fragment = new PageFragment();
@@ -40,9 +49,51 @@ public class PageFragment extends Fragment {
         mPosition = getArguments().getInt("position");
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(new GoodsAdapter());
+        mAdapter = new GoodsAdapter();
+        mRecyclerView.setAdapter(mAdapter);
     }
 
+    public void loadmore() {
+        mList.clear();
+        mList.addAll(DataResource.getMoreData());
+        Toast.makeText(getActivity(), "加载了" + 20 + "条数据", Toast.LENGTH_SHORT).show();
+
+        // 加载完数据设置为不加载状态，将加载进度收起来
+//        mSwipeRefreshView.setLoading(false);
+    }
+    public void initData() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mList.clear();
+                mList.addAll(DataResource.getData());
+                mAdapter.notifyDataSetChanged();
+
+                Toast.makeText(getActivity(), "刷新了20条数据", Toast.LENGTH_SHORT).show();
+
+                // 加载完数据设置为不刷新状态，将下拉进度收起来
+                SwipeRefreshLayout srl = ((HomeFragment) getParentFragment()).getSrl();
+                if (srl.isRefreshing()) {
+                    srl.setRefreshing(false);
+                }
+            }
+        }, 2000);
+    }
+    public void loadMoreData() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                mList.clear();
+                mList.addAll(DataResource.getMoreData());
+                Toast.makeText(getActivity(), "加载了" + 20 + "条数据", Toast.LENGTH_SHORT).show();
+
+                // 加载完数据设置为不加载状态，将加载进度收起来
+                SwipeRefreshView srl = ((HomeFragment) getParentFragment()).getSrl();
+                srl.setLoading(false);
+            }
+        }, 2000);
+    }
     private class GoodsAdapter extends RecyclerView.Adapter<GoodsVH> {
 
         @Override
@@ -57,7 +108,7 @@ public class PageFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 40;
+            return mList.size();
         }
     }
 
@@ -78,4 +129,27 @@ public class PageFragment extends Fragment {
         }
     }
 
+    public static class DataResource {
+        private static List<String> datas = new ArrayList<>();
+        private static int page = 0;
+
+        public static List<String> getData() {
+            page = 0;
+            datas.clear();
+            for (int i = 0; i < 20; i++) {
+                datas.add("我是天才" + i + "号");
+            }
+
+            return datas;
+        }
+
+        public static List<String> getMoreData() {
+            page = page + 1;
+            for (int i = 20 * page; i < 20 * (page + 1); i++) {
+                datas.add("我是天才" + i + "号");
+            }
+
+            return datas;
+        }
+    }
 }
