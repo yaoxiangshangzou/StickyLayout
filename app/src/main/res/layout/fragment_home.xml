@@ -1,89 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.licrafter.scrolllayout.view.SwipeRefreshView xmlns:android="http://schemas.android.com/apk/res/android"
-                                              xmlns:tools="http://schemas.android.com/tools"
-                                              android:id="@+id/srl"
-                                              android:layout_width="match_parent"
-                                              android:layout_height="match_parent">
+<com.licrafter.scrolllayout.view.StickyLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:orientation="vertical">
 
-    <com.licrafter.scrolllayout.view.StickyLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:clickable="true"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/header"
+        <ImageView
+            android:id="@+id/header01"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ffffff"
+            android:layout_height="150dp"
+            android:background="#50ae"
             android:clickable="true"
-            android:orientation="vertical">
+            android:scaleType="centerCrop"/>
 
-            <ImageView
-                android:id="@+id/header01"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="#50ae"
-                android:clickable="true"
-                android:scaleType="centerCrop"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+            <View
+                android:background="#eb4f38"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#eb4f38"/>
+            <View
+                android:background="#ea8010"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#ea8010"/>
+            <View
+                android:background="#f4c600"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#f4c600"/>
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#9d55b8"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="#50de"
-                android:clickable="true">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/bg_01"/>
-            </LinearLayout>
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
+            <View
+                android:background="#9d55b8"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/goodsViewPager"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="120dp"
+            android:background="#50de"
+            android:clickable="true">
 
-    </com.licrafter.scrolllayout.view.StickyLayout>
-</com.licrafter.scrolllayout.view.SwipeRefreshView>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/bg_01"/>
+        </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/goodsViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</com.licrafter.scrolllayout.view.StickyLayout>
 
