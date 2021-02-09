@@ -66,6 +66,9 @@ public class StickyLayout extends LinearLayout {
         mScroller = new Scroller(context);
     }
 
+    /**
+     * setContentView > onFinishInflate > view绘制流程（performMeasure、performLayout、performDraw）
+     */
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -120,6 +123,8 @@ public class StickyLayout extends LinearLayout {
                 }
                 recycleVelocityTracker();
                 break;
+            default:
+                break;
         }
         return super.dispatchTouchEvent(ev);
     }
@@ -150,6 +155,8 @@ public class StickyLayout extends LinearLayout {
                     mIsDragging = false;
                     return true;
                 }
+                break;
+            default:
                 break;
         }
         return super.onInterceptTouchEvent(ev);
@@ -189,6 +196,8 @@ public class StickyLayout extends LinearLayout {
                 break;
             case MotionEvent.ACTION_UP:
                 mIsDragging = false;
+                break;
+            default:
                 break;
         }
         return super.onTouchEvent(event);
